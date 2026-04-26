@@ -513,6 +513,144 @@
   /* ── RESET CONFIRM ── */
   .reset-confirm { background: #1a0e0e; border-color: var(--danger) !important; }
 
+  /* ── TOGGLE SWITCH ── */
+  .toggle {
+    position: relative;
+    width: 42px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+  .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+  .toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 16px; height: 16px;
+    left: 3px; top: 3px;
+    background: var(--text-muted);
+    border-radius: 50%;
+    transition: all 0.2s;
+  }
+  .toggle input:checked + .toggle-slider { background: #1a2f1e; border-color: var(--accent3); }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(18px); background: var(--accent3); }
+
+  /* ── EXERCISE TOGGLE ROW ── */
+  .ex-toggle-row {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 11px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+    transition: border-color 0.2s, opacity 0.2s;
+  }
+  .ex-toggle-row.disabled-ex { opacity: 0.45; }
+  .ex-toggle-row.custom-ex { border-left: 3px solid #7c3aed; }
+  .ex-toggle-info { flex: 1; min-width: 0; }
+  .ex-toggle-name { font-size: 0.88rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ex-toggle-meta { font-size: 0.72rem; color: var(--text-muted); margin-top: 1px; }
+  .ex-toggle-actions { display: flex; gap: 6px; align-items: center; }
+  .ex-delete-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-muted);
+    width: 26px; height: 26px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .ex-delete-btn:hover { border-color: var(--danger); color: var(--danger); background: #1a0e0e; }
+
+  /* ── ADD EXERCISE FORM ── */
+  .add-ex-form {
+    background: var(--surface2);
+    border: 1px solid #2a1f3d;
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-top: 10px;
+    display: none;
+  }
+  .add-ex-form.open { display: block; animation: slideDown 0.2s ease; }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  .add-ex-form h4 {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #a78bfa;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+  .form-row { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .form-field { flex: 1; min-width: 130px; }
+  .form-field label {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 4px;
+  }
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    width: 100%;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    padding: 8px 10px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    -webkit-appearance: none;
+    transition: border-color 0.15s;
+  }
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus { outline: none; border-color: #a78bfa; }
+  .form-field textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
+  .form-field input.error,
+  .form-field textarea.error { border-color: var(--danger); }
+  .form-hint { font-size: 0.7rem; color: var(--text-dim); margin-top: 3px; }
+  .form-error { font-size: 0.75rem; color: var(--danger); margin-top: 3px; display: none; }
+  .form-error.show { display: block; }
+  .icon-picker { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 4px; }
+  .icon-opt {
+    width: 30px; height: 30px;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .icon-opt:hover { border-color: #a78bfa; }
+  .icon-opt.selected { border-color: #a78bfa; background: #150f24; }
+  .disabled-note {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
   /* ── UTIL ── */
   .mt8 { margin-top: 8px; }
   .gap-row { display: flex; gap: 8px; }
@@ -622,10 +760,10 @@
 
   <!-- TABS -->
   <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('exercises')">🦵 Exercises</button>
-    <button class="tab-btn" onclick="switchTab('history')">📅 History</button>
-    <button class="tab-btn" onclick="switchTab('settings')">⚙️ Settings</button>
-    <button class="tab-btn" onclick="switchTab('info')">ℹ️ Info</button>
+    <button class="tab-btn active" id="tabbtn-exercises" onclick="switchTab('exercises', this)">🦵 Exercises</button>
+    <button class="tab-btn" id="tabbtn-history" onclick="switchTab('history', this)">📅 History</button>
+    <button class="tab-btn" id="tabbtn-settings" onclick="switchTab('settings', this)">⚙️ Settings</button>
+    <button class="tab-btn" id="tabbtn-info" onclick="switchTab('info', this)">ℹ️ Info</button>
   </div>
 
   <!-- ============================================================ -->
@@ -707,6 +845,107 @@
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
+      </div>
+    </div>
+
+    <div class="settings-group">
+      <h3>My Exercise Regime</h3>
+      <div class="disabled-note">
+        Tick exercises <strong style="color:var(--text);">on</strong> to include them in your sessions. Unticked exercises are hidden but not deleted — you can re-enable them any time. NHS Fife exercises cannot be deleted, only toggled.
+      </div>
+      <div id="exerciseToggleList"></div>
+    </div>
+
+    <div class="settings-group">
+      <h3>Add a Custom Exercise</h3>
+      <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:10px;">Add an exercise your physio prescribed that isn't in the NHS Fife list. It will appear in your current level's sessions.</p>
+      <button class="btn btn-secondary" style="width:100%;justify-content:center;" onclick="toggleAddExForm()" id="addExBtn">
+        ＋ Add Custom Exercise
+      </button>
+
+      <div class="add-ex-form" id="addExForm">
+        <h4>✦ New Exercise Details</h4>
+
+        <div class="form-row">
+          <div class="form-field" style="flex:2; min-width:200px;">
+            <label>Exercise Name <span style="color:var(--danger);">*</span></label>
+            <input type="text" id="newExName" placeholder="e.g. Hamstring Curl" maxlength="60">
+            <div class="form-error" id="newExNameErr">Please enter a name.</div>
+          </div>
+          <div class="form-field" style="flex:1; min-width:100px;">
+            <label>Level</label>
+            <select id="newExLevel">
+              <option value="1">Level 1</option>
+              <option value="2">Level 2</option>
+              <option value="3">Level 3</option>
+            </select>
+            <div class="form-hint">Which level to add it to</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field" style="flex:1; min-width:100%;">
+            <label>How to do it <span style="color:var(--danger);">*</span></label>
+            <textarea id="newExInstruction" placeholder="Describe the position, movement and any tips. e.g. Lie on your front. Bend your knee and slowly curl your heel up towards your bottom. Lower slowly."></textarea>
+            <div class="form-hint">Be as clear as possible — you'll read this during your session.</div>
+            <div class="form-error" id="newExInstrErr">Please add instructions.</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Reps per set</label>
+            <input type="number" id="newExReps" value="10" min="1" max="50">
+          </div>
+          <div class="form-field">
+            <label>Sets</label>
+            <input type="number" id="newExSets" value="3" min="1" max="10">
+          </div>
+          <div class="form-field">
+            <label>Hold (secs)</label>
+            <input type="number" id="newExHold" value="0" min="0" max="120">
+            <div class="form-hint">0 = no hold timer</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field" style="flex:1; min-width:100%;">
+            <label>Frequency note</label>
+            <input type="text" id="newExFreq" placeholder="e.g. 3× per day, Once daily" maxlength="40" value="3× per day">
+          </div>
+        </div>
+
+        <div class="form-field" style="margin-bottom:14px;">
+          <label>Icon (pick one)</label>
+          <div class="icon-picker" id="iconPicker">
+            <div class="icon-opt selected" onclick="selectIcon(this,'🦵')">🦵</div>
+            <div class="icon-opt" onclick="selectIcon(this,'💪')">💪</div>
+            <div class="icon-opt" onclick="selectIcon(this,'🏃')">🏃</div>
+            <div class="icon-opt" onclick="selectIcon(this,'🧘')">🧘</div>
+            <div class="icon-opt" onclick="selectIcon(this,'⚖️')">⚖️</div>
+            <div class="icon-opt" onclick="selectIcon(this,'🔄')">🔄</div>
+            <div class="icon-opt" onclick="selectIcon(this,'↗️')">↗️</div>
+            <div class="icon-opt" onclick="selectIcon(this,'↔️')">↔️</div>
+            <div class="icon-opt" onclick="selectIcon(this,'⬆️')">⬆️</div>
+            <div class="icon-opt" onclick="selectIcon(this,'⬇️')">⬇️</div>
+            <div class="icon-opt" onclick="selectIcon(this,'🏔️')">🏔️</div>
+            <div class="icon-opt" onclick="selectIcon(this,'🪜')">🪜</div>
+            <div class="icon-opt" onclick="selectIcon(this,'🪑')">🪑</div>
+            <div class="icon-opt" onclick="selectIcon(this,'🚶')">🚶</div>
+            <div class="icon-opt" onclick="selectIcon(this,'🦾')">🦾</div>
+            <div class="icon-opt" onclick="selectIcon(this,'🌀')">🌀</div>
+            <div class="icon-opt" onclick="selectIcon(this,'✨')">✨</div>
+            <div class="icon-opt" onclick="selectIcon(this,'🎯')">🎯</div>
+          </div>
+          <input type="hidden" id="newExIcon" value="🦵">
+        </div>
+
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn btn-primary" style="flex:1; justify-content:center;" onclick="saveCustomExercise()">
+            ＋ Add to Regime
+          </button>
+          <button class="btn btn-secondary" onclick="toggleAddExForm()">Cancel</button>
+        </div>
       </div>
     </div>
 
@@ -1027,6 +1266,9 @@ function loadState() {
     const saved = localStorage.getItem('kneecomeback_v2');
     if (saved) state = JSON.parse(saved);
   } catch(e) {}
+  // Backfill new fields for existing users
+  if (!state.settings.disabledExercises) state.settings.disabledExercises = [];
+  if (!state.settings.customExercises) state.settings.customExercises = [];
   // Ensure all exercises have state
   ensureExerciseState();
 }
@@ -1039,8 +1281,10 @@ function saveState() {
 
 function ensureExerciseState() {
   const level = state.settings.level;
-  const exercises = EXERCISES[level] || [];
-  exercises.forEach(ex => {
+  const builtIn = EXERCISES[level] || [];
+  const customs = (state.settings.customExercises || []).filter(e => e.level === level);
+  const all = [...builtIn, ...customs];
+  all.forEach(ex => {
     if (!state.exerciseState[ex.id]) {
       const ov = state.settings.exerciseOverrides[ex.id] || {};
       state.exerciseState[ex.id] = {
@@ -1083,28 +1327,18 @@ function isFullDayComplete() {
 // ===================================================================
 
 function recalcStreak() {
-  // Check if yesterday was completed
-  const today = todayKey();
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-  const yKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth()+1).padStart(2,'0')}-${String(yesterday.getDate()).padStart(2,'0')}`;
-
-  const todayDone = isFullDayComplete();
-  const yData = state.history[yKey];
-  const yDone = yData && yData.sessions.filter(Boolean).length >= (yData.sessions.length || state.settings.sessionsPerDay);
-
-  if (todayDone) {
-    // Streak continues from yesterday or starts today
-    if (!yDone && state.streak === 0) {
-      state.streak = 1;
-    } else if (yDone) {
-      // already counted yesterday
-    }
-    state.lastCompletedDate = today;
-  } else if (!yDone && state.lastCompletedDate !== today) {
-    // If yesterday wasn't done and today isn't done yet, streak might be broken
-    // Only reset if last completed date is more than 1 day ago
-    if (state.lastCompletedDate) {
+  // If user hasn't completed today's full session yet, check if streak is stale
+  // (i.e. they missed yesterday entirely and today isn't done either)
+  if (!isFullDayComplete()) {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth()+1).padStart(2,'0')}-${String(yesterday.getDate()).padStart(2,'0')}`;
+    const yData = state.history[yKey];
+    const yDone = yData && yData.sessions.filter(Boolean).length >= yData.sessions.length;
+    const lastWasYesterday = state.lastCompletedDate === yKey;
+    const lastWasToday = state.lastCompletedDate === todayKey();
+    // If yesterday wasn't completed AND today isn't completed AND last session wasn't yesterday or today → streak broken
+    if (!yDone && !lastWasYesterday && !lastWasToday && state.streak > 0 && state.lastCompletedDate) {
       const last = new Date(state.lastCompletedDate);
       const diff = Math.floor((new Date() - last) / 86400000);
       if (diff > 1) state.streak = 0;
@@ -1196,7 +1430,11 @@ function renderBanner() {
 }
 
 function renderExercises() {
-  const exercises = EXERCISES[state.settings.level] || [];
+  const builtIn = EXERCISES[state.settings.level] || [];
+  const customs = (state.settings.customExercises || []).filter(e => e.level === state.settings.level);
+  const allExercises = [...builtIn, ...customs];
+  // Filter out disabled
+  const exercises = allExercises.filter(ex => isExerciseEnabled(ex.id));
   const container = document.getElementById('exerciseList');
   container.innerHTML = '';
 
@@ -1421,7 +1659,15 @@ function resetTimer(exId, duration) {
 }
 
 function markSessionComplete() {
-  const exercises = EXERCISES[state.settings.level] || [];
+  const builtIn = EXERCISES[state.settings.level] || [];
+  const customs = (state.settings.customExercises || []).filter(e => e.level === state.settings.level);
+  const exercises = [...builtIn, ...customs].filter(ex => isExerciseEnabled(ex.id));
+
+  if (exercises.length === 0) {
+    alert('You have no exercises enabled! Go to Settings → My Exercise Regime and toggle at least one on.');
+    return;
+  }
+
   const allDone = exercises.every(ex => {
     const es = state.exerciseState[ex.id];
     return es && es.setsCompleted.every(Boolean);
@@ -1445,18 +1691,22 @@ function markSessionComplete() {
   const dayNowComplete = isFullDayComplete();
   if (dayNowComplete) {
     state.totalDays++;
-    // Update streak
+    const today = todayKey();
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     const yKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth()+1).padStart(2,'0')}-${String(yesterday.getDate()).padStart(2,'0')}`;
-    const yData = state.history[yKey];
-    const yDone = yData && yData.sessions.filter(Boolean).length >= yData.sessions.length;
-    if (yDone || state.streak === 0 || state.lastCompletedDate === yKey) {
+    // Increment streak if: no previous record (first ever), or last completed was yesterday, or already today (multi-mark guard)
+    if (!state.lastCompletedDate) {
+      state.streak = 1;
+    } else if (state.lastCompletedDate === yKey) {
       state.streak++;
+    } else if (state.lastCompletedDate === today) {
+      // Already counted today (shouldn't normally reach here but guard it)
     } else {
+      // Gap > 1 day, reset streak
       state.streak = 1;
     }
-    state.lastCompletedDate = todayKey();
+    state.lastCompletedDate = today;
   }
 
   // Advance session pointer (but don't go past total)
@@ -1476,7 +1726,9 @@ function markSessionComplete() {
 }
 
 function resetExercisesForSession() {
-  const exercises = EXERCISES[state.settings.level] || [];
+  const builtIn = EXERCISES[state.settings.level] || [];
+  const customs = (state.settings.customExercises || []).filter(e => e.level === state.settings.level);
+  const exercises = [...builtIn, ...customs];
   exercises.forEach(ex => {
     if (state.exerciseState[ex.id]) {
       const sets = state.exerciseState[ex.id].sets;
@@ -1653,10 +1905,15 @@ function renderSettingsTab() {
   document.getElementById('settingLevel').value = state.settings.level;
   document.getElementById('settingSessions').value = state.settings.sessionsPerDay;
 
+  // Exercise toggle list
+  renderExerciseToggleList();
+
   // Per-exercise global settings
   const container = document.getElementById('globalExerciseSettings');
   container.innerHTML = '';
-  const exercises = EXERCISES[state.settings.level] || [];
+  const builtIn = EXERCISES[state.settings.level] || [];
+  const customs = (state.settings.customExercises || []).filter(e => e.level === state.settings.level);
+  const exercises = [...builtIn, ...customs];
   exercises.forEach(ex => {
     const es = state.exerciseState[ex.id] || {};
     const reps = es.reps ?? ex.defaultReps;
@@ -1696,8 +1953,15 @@ function renderSettingsTab() {
 }
 
 function saveSettings() {
-  state.settings.level = parseInt(document.getElementById('settingLevel').value);
+  const newLevel = parseInt(document.getElementById('settingLevel').value);
+  const levelChanged = newLevel !== state.settings.level;
+  state.settings.level = newLevel;
   state.settings.sessionsPerDay = parseInt(document.getElementById('settingSessions').value);
+  if (levelChanged) {
+    // Reset exercise states so new level starts fresh
+    state.exerciseState = {};
+    state.currentSession = 0;
+  }
   ensureExerciseState();
   // Fix today's history if sessions count changed
   const key = todayKey();
@@ -1725,7 +1989,7 @@ function resetAll() {
   state = {
     streak: 0, lastCompletedDate: null, totalSessions: 0, totalDays: 0,
     history: {}, earnedBadges: [], currentSession: 0, exerciseState: {},
-    settings: { level: 1, sessionsPerDay: 3, exerciseOverrides: {} }
+    settings: { level: 1, sessionsPerDay: 3, exerciseOverrides: {}, disabledExercises: [], customExercises: [] }
   };
   ensureExerciseState();
   saveState();
@@ -1735,14 +1999,179 @@ function resetAll() {
 }
 
 // ===================================================================
+//  EXERCISE ENABLE / DISABLE
+// ===================================================================
+
+function isExerciseEnabled(exId) {
+  // Default: all built-in exercises enabled unless explicitly disabled
+  if (state.settings.disabledExercises && state.settings.disabledExercises.includes(exId)) return false;
+  return true;
+}
+
+function toggleExerciseEnabled(exId, enabled) {
+  if (!state.settings.disabledExercises) state.settings.disabledExercises = [];
+  if (enabled) {
+    state.settings.disabledExercises = state.settings.disabledExercises.filter(id => id !== exId);
+  } else {
+    if (!state.settings.disabledExercises.includes(exId)) state.settings.disabledExercises.push(exId);
+  }
+  saveState();
+  render();
+  renderSettingsTab();
+}
+
+function renderExerciseToggleList() {
+  const container = document.getElementById('exerciseToggleList');
+  if (!container) return;
+  container.innerHTML = '';
+
+  const level = state.settings.level;
+  const builtIn = EXERCISES[level] || [];
+  const customs = (state.settings.customExercises || []).filter(e => e.level === level);
+  const all = [...builtIn.map(e => ({...e, isCustom: false})), ...customs.map(e => ({...e, isCustom: true}))];
+
+  if (all.length === 0) {
+    container.innerHTML = '<div class="disabled-note">No exercises for this level yet.</div>';
+    return;
+  }
+
+  all.forEach(ex => {
+    const enabled = isExerciseEnabled(ex.id);
+    const row = document.createElement('div');
+    row.className = 'ex-toggle-row' + (!enabled ? ' disabled-ex' : '') + (ex.isCustom ? ' custom-ex' : '');
+
+    const holdText = ex.holdSecs > 0 ? ` · Hold ${ex.holdSecs}s` : '';
+    const es = state.exerciseState[ex.id] || {};
+    const reps = es.reps ?? ex.defaultReps;
+    const sets = es.sets ?? ex.defaultSets;
+
+    row.innerHTML = `
+      <label class="toggle" title="${enabled ? 'Click to disable' : 'Click to enable'}">
+        <input type="checkbox" ${enabled ? 'checked' : ''} onchange="toggleExerciseEnabled('${ex.id}', this.checked)">
+        <span class="toggle-slider"></span>
+      </label>
+      <div class="ex-toggle-info">
+        <div class="ex-toggle-name">${ex.icon} ${ex.name}${ex.isCustom ? ' <span style="font-size:0.65rem;color:#7c3aed;background:#150f24;border:1px solid #2a1f3d;border-radius:10px;padding:1px 6px;vertical-align:middle;">custom</span>' : ''}</div>
+        <div class="ex-toggle-meta">${reps} reps × ${sets} sets${holdText}</div>
+      </div>
+      <div class="ex-toggle-actions">
+        ${ex.isCustom ? `<button class="ex-delete-btn" onclick="deleteCustomExercise('${ex.id}')" title="Delete this exercise">🗑</button>` : ''}
+      </div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+// ===================================================================
+//  CUSTOM EXERCISES
+// ===================================================================
+
+let selectedIcon = '🦵';
+
+function selectIcon(el, icon) {
+  selectedIcon = icon;
+  document.getElementById('newExIcon').value = icon;
+  document.querySelectorAll('.icon-opt').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function toggleAddExForm() {
+  const form = document.getElementById('addExForm');
+  const btn = document.getElementById('addExBtn');
+  const isOpen = form.classList.contains('open');
+  form.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? '＋ Add Custom Exercise' : '✕ Cancel';
+  if (!isOpen) {
+    // Set level picker to current level
+    document.getElementById('newExLevel').value = state.settings.level;
+    // Pre-select first icon
+    selectedIcon = '🦵';
+    document.getElementById('newExIcon').value = '🦵';
+    const firstIcon = document.querySelector('.icon-opt');
+    if (firstIcon) { document.querySelectorAll('.icon-opt').forEach(e => e.classList.remove('selected')); firstIcon.classList.add('selected'); }
+  }
+}
+
+function saveCustomExercise() {
+  // Validate
+  let valid = true;
+  const name = document.getElementById('newExName').value.trim();
+  const instr = document.getElementById('newExInstruction').value.trim();
+  const nameErr = document.getElementById('newExNameErr');
+  const instrErr = document.getElementById('newExInstrErr');
+  const nameInput = document.getElementById('newExName');
+  const instrInput = document.getElementById('newExInstruction');
+
+  nameErr.classList.remove('show'); nameInput.classList.remove('error');
+  instrErr.classList.remove('show'); instrInput.classList.remove('error');
+
+  if (!name) { nameErr.classList.add('show'); nameInput.classList.add('error'); valid = false; }
+  if (!instr) { instrErr.classList.add('show'); instrInput.classList.add('error'); valid = false; }
+  if (!valid) return;
+
+  const reps = Math.max(1, Math.min(50, parseInt(document.getElementById('newExReps').value) || 10));
+  const sets = Math.max(1, Math.min(10, parseInt(document.getElementById('newExSets').value) || 3));
+  const hold = Math.max(0, Math.min(120, parseInt(document.getElementById('newExHold').value) || 0));
+  const freq = document.getElementById('newExFreq').value.trim() || '3× per day';
+  const level = parseInt(document.getElementById('newExLevel').value) || state.settings.level;
+  const icon = document.getElementById('newExIcon').value || '🦵';
+
+  // Generate unique ID
+  const id = 'custom_' + Date.now();
+
+  if (!state.settings.customExercises) state.settings.customExercises = [];
+  state.settings.customExercises.push({
+    id, name, instruction: instr,
+    defaultReps: reps, repRange: [1, 50],
+    defaultSets: sets, setsRange: [1, 10],
+    holdSecs: hold, holdRange: [0, 120],
+    frequency: freq, icon, level,
+    isCustom: true
+  });
+
+  // Init its exercise state immediately
+  state.exerciseState[id] = { reps, sets, holdSecs: hold, setsCompleted: Array(sets).fill(false) };
+
+  // Clear form
+  document.getElementById('newExName').value = '';
+  document.getElementById('newExInstruction').value = '';
+  document.getElementById('newExReps').value = '10';
+  document.getElementById('newExSets').value = '3';
+  document.getElementById('newExHold').value = '0';
+  document.getElementById('newExFreq').value = '3× per day';
+
+  // Close form
+  document.getElementById('addExForm').classList.remove('open');
+  document.getElementById('addExBtn').textContent = '＋ Add Custom Exercise';
+
+  saveState();
+  render();
+  renderSettingsTab();
+}
+
+function deleteCustomExercise(id) {
+  if (!confirm('Delete this custom exercise? This cannot be undone.')) return;
+  state.settings.customExercises = (state.settings.customExercises || []).filter(e => e.id !== id);
+  delete state.exerciseState[id];
+  // Remove from disabled list too if present
+  if (state.settings.disabledExercises) {
+    state.settings.disabledExercises = state.settings.disabledExercises.filter(eid => eid !== id);
+  }
+  saveState();
+  render();
+  renderSettingsTab();
+}
+
+// ===================================================================
 //  TABS
 // ===================================================================
 
-function switchTab(name) {
+function switchTab(name, btn) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('visible');
-  event.target.classList.add('active');
+  if (btn) btn.classList.add('active');
+  else { const b = document.getElementById('tabbtn-' + name); if (b) b.classList.add('active'); }
   if (name === 'history') renderHistory();
   if (name === 'settings') renderSettingsTab();
 }
